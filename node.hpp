@@ -18,7 +18,7 @@ public:
   //Default constuctor
   Node<K,V>()
   {
-    cout<<"CREATED NODE"<<endl;
+    //cout<<"CREATED NODE"<<endl;
     left = nullptr;
     right = nullptr;
   };
@@ -65,7 +65,6 @@ public:
       return true;
     return false;
   };
-
 
 
 
