@@ -6,20 +6,20 @@
 int main()
 {
   //Default BST constuctor
-  BST<int, string> bst;
-  bst.emplace(Node<int, string>(173, "grubber"));
+  // BST<int, string> bst;
+  // bst.emplace(Node<int, string>(173, "grubber"));
+  //
+  // Node<int, string> wub(17, "Grizzer"); //Make Node on stack , then there is a heap version created in the BST's constructor.
+  // bst.emplace(wub);
+  //
+  // bst.emplace(Node<int, string>(957, "grubber"));
+  // bst.emplace(Node<int, string>(9597, "grubber"));
+  // bst.emplace(Node<int, string>(6957, "grubber"));
+  //
+  // Node<int, string> wub2(7, "Grizzer"); //Make Node on stack , then there is a heap version created in the BST's constructor.
+  // bst.emplace(wub2);
 
-  Node<int, string> wub(17, "Grizzer"); //Make Node on stack , then there is a heap version created in the BST's constructor.
-  bst.emplace(wub);
-
-  bst.emplace(Node<int, string>(957, "grubber"));
-  bst.emplace(Node<int, string>(9597, "grubber"));
-  bst.emplace(Node<int, string>(6957, "grubber"));
-
-  Node<int, string> wub2(7, "Grizzer"); //Make Node on stack , then there is a heap version created in the BST's constructor.
-  bst.emplace(wub2);
-
-  //TRYING TO GET AN ARRAY OF NODES, BUT IT CAN WAIT 
+  //TRYING TO GET AN ARRAY OF NODES, BUT IT CAN WAIT
   // Node<int, string>* nodeArray = new Node<int,string>[3];
   // ++nodeArray = new Node<int,string>(245,"AHHHH");
   // cout<<"nodeArray: "<<*nodeArray<<endl;
@@ -38,7 +38,6 @@ int main()
 
 
 
-  bst.ascend_printout(bst.getRoot());
 
   //Default Node Constructor
   //Node<int, string> node1;
@@ -57,26 +56,40 @@ int main()
   // new Node<int, string>(14723, "ghjk");
 
 
-  //Node<int, string> wub(172, "Grizzer"); //Make Node on stack , then there is a heap version created in the BST's constructor.
+  Node<int, string> wub(172, "Grizzer"); //Make Node on stack , then there is a heap version created in the BST's constructor.
 
 
-
-
-  // BST<int, float> bst3(Node<int, float>(8, 36.2308));  //Method 1 of construction
+  //BST<int, float> bst3(Node<int, float>(8, 36.2308));  //Method 1 of construction
   //BST<int, string> bst4(wub); //Method 2 of construction
 
+  BST<int,string> bst2(wub);
 
-  // bst2.emplace(Node<int, string>(8, "Grub"));
-  // bst2.emplace(Node<int, string>(3, "Chub"));
-  // bst2.emplace(Node<int, string>(1, "Scrub"));
-  // bst2.emplace(Node<int, string>(2, "Wack"));
-  // bst2.emplace(Node<int, string>(56, "Grub"));
-  // bst2.emplace(Node<int, string>(34, "Chub"));
-  // bst2.emplace(Node<int, string>(25, "Scrub"));
-  // bst2.emplace(Node<int, string>(13, "Wack"));
-  // bst2.emplace(Node<int, string>(36736, "sbub"));
-  // bst2.emplace(Node<int, string>(17456, "pulp"));
-  // bst2.emplace(Node<int, string>(8543, "bumb"));
+  bst2.emplace(Node<int, string>(10, "Grub"));
+  bst2.emplace(Node<int, string>(8, "Chub"));
+  bst2.emplace(Node<int, string>(6, "Scrub"));
+  bst2.emplace(Node<int, string>(3, "Wack"));
+  bst2.emplace(Node<int, string>(7, "Wack"));
+  bst2.emplace(Node<int, string>(56, "Grub"));
+  bst2.emplace(Node<int, string>(34, "Chub"));
+  bst2.emplace(Node<int, string>(25, "Scrub"));
+  bst2.emplace(Node<int, string>(13, "Wack"));
+  bst2.emplace(Node<int, string>(20, "WackSMAXK"));
+  bst2.emplace(Node<int, string>(800, "sbub"));
+  bst2.emplace(Node<int, string>(1200, "pulp"));
+  bst2.emplace(Node<int, string>(1100, "bumb"));
+  bst2.emplace(Node<int, string>(500, "bleh"));
+  bst2.emplace(Node<int, string>(1300, "carrot"));
+  bst2.emplace(Node<int, string>(60, "hoops"));
+
+
+
+  bst2.deleteNode(1200);
+
+  cout<<endl<<endl<<endl;
+  bst2.ascend_printout(bst2.getRoot());
+  //bst2.deleteNode(1200);
+
+  //cout<<bst2.leftmost_child(bst2.getRoot()).getKey();
   // bst2.emplace(Node<int, string>(993, "scab"));
   // bst2.emplace(Node<int, string>(7217, "pler"));
   // bst2.emplace(Node<int, string>(3433, "acst"));

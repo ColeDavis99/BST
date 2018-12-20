@@ -94,6 +94,131 @@ class BST
        }
     };
 
+    //Delete the node with a particular key
+    bool deleteNode(K key_arg)
+    {
+      bool found_node = false;
+
+
+      //Keep track of parent and child nodes for our search. Child will be deleted, parent will get its left or right pointer assigned
+      Node<K,V>* parent;
+      parent = nullptr;
+      Node<K,V>* child;
+      child = root;
+
+      //Keeps track of child pointer's relation to the parent pointer
+      bool child_is_left = false;
+
+
+
+
+      //Special case of deleting an empty BST
+      if(root == nullptr)
+      {
+        cout<<"This BST is empty, nothing do delete."<<endl;
+        found_node = true;
+        return found_node;
+      }
+
+
+
+
+      /*
+      Three steps for deletion:
+            1. Locate node to deleted
+            2. See if node to delte has one, two, or no children and assign parent pointer accordingly
+                2a: node has two children
+                2b: node has one child
+                2c: node has no children
+      */
+
+      // Step 1 of 2: Locate node to delete
+      while(child != nullptr)
+      {
+        if(child->getKey() == key_arg) // We've found the node to delete
+        {
+          found_node = true;
+          cout<<"Delete node with parent of "<<parent->getKey()<<" and the node itself is "<<child->getKey()<<endl;
+          if(child_is_left)
+            cout<<"to the left of parent"<<endl;
+          else
+            cout<<"To the right of parent"<<endl;
+          break;
+        }
+
+        else if(child->getKey() > key_arg) //Move left
+        {
+          parent = child;
+          child = child->left;
+          child_is_left = true;
+        }
+
+        else if (child->getKey() < key_arg) //Move right;
+        {
+          parent = child;
+          child = child->right;
+          child_is_left = false;
+        }
+      }
+
+      //key doesn't exist in the BST
+      if(child == nullptr)
+      {
+        cout<<"No key of "<<key_arg<<" in the BST"<<endl;
+        return found_node;
+      }
+
+
+
+      // Step 2 of 2: See if Node to delete has one, two, or no children and assign parent pointer accordingly.
+
+      //Step 2a: node hads two children
+      if(child->left != nullptr && child->right != nullptr)
+      {
+        cout<<"TWO CHILDREN"<<endl;
+        if(child_is_left) //Child is left child of parent
+        {
+          parent->left = leftmost_child(child->right);
+          parent->left->left = child->left;
+          if(child->right->getKey() != parent->left->getKey()) //Make sure to remove right subtree if there's only one node in it.
+            parent->left->right = child->right;
+
+          child->left = nullptr;
+          child->right = nullptr;
+          delete child;
+
+        }
+        else //Child is right child of parent
+        {
+          parent->right = leftmost_child(child->right);
+          parent->right->left = child->left;
+          if(child->right->getKey() != parent->right->getKey()) //Make sure to remove right subtree if there's only one node in it.
+            parent->right->right = child->right;
+
+          child->left = nullptr;
+          child->right = nullptr;
+          delete child;
+        }
+      }
+
+
+      //Step 2b: Node has one child
+      else if( (child->left == nullptr && child->right != nullptr)  ||  (child->right == nullptr && child->left != nullptr) )
+      {
+
+      }
+
+      //Step 2c: Node has no children
+      else if(child->left == nullptr && child->right == nullptr)
+      {
+        if(child_is_left)
+          parent->left = nullptr;
+        else
+          parent->right = nullptr;
+
+        delete child;
+      }
+    };
 
     //Print out contents by recursing left, then right
     void ascend_printout(Node<K,V>* currNode)
@@ -114,6 +239,38 @@ class BST
     Node<K,V>* getRoot()
     {
       return root;
+    }
+
+    //Return pointer to leftmost child of paramater node, also fixes leftmost node's right subtree
+    Node<K,V>* leftmost_child(Node<K,V>* arg_node)
+    {
+      Node<K,V>* parent;
+      parent = nullptr;
+      Node<K,V>* child;
+      child = arg_node;
+
+
+      //Special case of only one node in the subtree
+      if(arg_node->left == nullptr && arg_node->right == nullptr)
+      {
+        cout<<"Leftmost's parent is itself (subtree is only one node)"<<endl;
+        return child;
+      }
+
+
+      while(child->left != nullptr)
+      {
+        cout<<"Leftmost: "<<child->getKey()<<endl;
+        parent = child;
+        child = child->left;
+      }
+
+      //Fix the right subtree of the leftmost node (make sure it isn't dropped)
+      cout<<"Leftmost LAST: "<<child->getKey()<<endl;
+      cout<<"Leftmost's parent: "<<parent->getKey()<<endl;
+      parent->left = child->right;
+
+      return child;
     }
 
 
