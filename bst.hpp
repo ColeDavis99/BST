@@ -124,6 +124,7 @@ class BST
 
 
 
+
       /*
       Three steps for deletion:
             1. Locate node to deleted
@@ -139,10 +140,14 @@ class BST
         if(child->getKey() == key_arg) // We've found the node to delete
         {
           found_node = true;
-          cout<<"Delete node with parent of "<<parent->getKey()<<" and the node itself is "<<child->getKey()<<endl;
-          if(child_is_left)
-            cout<<"to the left of parent"<<endl;
+          if(parent != nullptr)
+            cout<<"Delete node with parent of "<<parent->getKey()<<" and the node itself is "<<child->getKey()<<endl;
           else
+            cout<<"Deleting root (no parent), the node itself is "<<child->getKey()<<endl;
+
+          if(child_is_left && parent != nullptr)
+            cout<<"to the left of parent"<<endl;
+          else if(parent != nullptr)
             cout<<"To the right of parent"<<endl;
           break;
         }
@@ -177,28 +182,41 @@ class BST
       if(child->left != nullptr && child->right != nullptr)
       {
         cout<<"TWO CHILDREN"<<endl;
-        if(child_is_left) //Child is left child of parent
+
+        if(parent == nullptr)//If we're deleting root node
+        {
+          root = leftmost_child(child->right);
+
+          if(root->getKey() != child->right->getKey()) //Make sure to remove right subtree of child if there's only one node in it
+            root->right = child->right;
+          root->left = child->left;
+
+          child->left = nullptr;
+          child->right = nullptr;
+          delete child;
+        }
+
+        else if(child_is_left) //Child is left child of parent
         {
           parent->left = leftmost_child(child->right);
           parent->left->left = child->left;
-          if(child->right->getKey() != parent->left->getKey()) //Make sure to remove right subtree if there's only one node in it.
+          if(child->right->getKey() != parent->left->getKey()) //Make sure to remove right subtree of child if there's only one node in it.
             parent->left->right = child->right;
 
           child->left = nullptr;
           child->right = nullptr;
           delete child;
-
         }
         else //Child is right child of parent
         {
           parent->right = leftmost_child(child->right);
           parent->right->left = child->left;
-          if(child->right->getKey() != parent->right->getKey()) //Make sure to remove right subtree if there's only one node in it.
+          if(child->right->getKey() != parent->right->getKey()) //Make sure to remove right subtree of child if there's only one node in it.
             parent->right->right = child->right;
 
           child->left = nullptr;
           child->right = nullptr;
-        delete child;
+          delete child;
         }
       }
 
@@ -206,7 +224,31 @@ class BST
       //Step 2b: Node has one child
       else if( (child->left == nullptr && child->right != nullptr)  ||  (child->right == nullptr && child->left != nullptr) )
       {
-        if(child_is_left) //Child is left child of parent
+        cout<<"One child"<<endl;
+        if(parent == nullptr) //If we're deleting the root
+        {
+          if(child->right != nullptr) //Root has subtree to the right, and left is completly empty
+          {
+            root = leftmost_child(child->right);
+
+            if(root->right->getKey() != child->right->getKey()) //Make sure to remove right subtree of child if there's only one node in it
+              root->right = child->right;
+            root->left = child->left;
+
+            child->left = nullptr;
+            child->right = nullptr;
+            delete child;
+          }
+
+          else //Child has subtree to the left, and right is completly empty
+          {
+            root = child->left;
+            child->left = nullptr;
+            delete child;
+          }
+        }//End of root deletion cases
+
+        else if(child_is_left) //Child is left child of parent
         {
           //Assign parent's left pointer equal to child's only child
           if(child->right != nullptr)
@@ -219,6 +261,7 @@ class BST
             parent->left = child->left;
             child->left = nullptr;
           }
+          delete child;
         }
         else //Child is right child of parent
         {
@@ -233,21 +276,30 @@ class BST
             parent->right = child->left;
             child->left = nullptr;
           }
+          delete child;
         }
-        delete child;
       }
 
       //Step 2c: Node has no children
       else if(child->left == nullptr && child->right == nullptr)
       {
         cout<<"No children"<<endl;
-        if(child_is_left)
-          parent->left = nullptr;
+
+        if(parent != nullptr)
+        {
+          if(child_is_left)
+            parent->left = nullptr;
+          else
+            parent->right = nullptr;
+        }
         else
-          parent->right = nullptr;
+        {
+          root = nullptr;
+        }
 
         delete child;
       }
+      return found_node; //Returns true if this point is reached
     };
 
     //Print out contents by recursing left, then right
@@ -259,7 +311,16 @@ class BST
       else
       {
         ascend_printout(currNode->left);
-        cout<<currNode->getKey()<<endl;
+        cout<<currNode->getKey()<<"\t\t";
+        //cout<<currNode->getKey()<<"\t"<<currNode->getValue()<<"\t"<<currNode<<"\t";
+        if(currNode->left != nullptr)
+          cout<<currNode->left->getKey()<<"\t";
+        else
+          cout<<"0"<<"\t";
+        if(currNode->right != nullptr)
+          cout<<currNode->right->getKey()<<endl;
+        else
+          cout<<"0"<<endl;
         ascend_printout(currNode->right);
       }
     };
@@ -297,8 +358,11 @@ class BST
 
       //Fix the right subtree of the leftmost node (make sure it isn't dropped)
       cout<<"Leftmost LAST: "<<child->getKey()<<endl;
-      cout<<"Leftmost's parent: "<<parent->getKey()<<endl;
-      parent->left = child->right;
+      if(parent != nullptr)
+      {
+        cout<<"Leftmost's parent: "<<parent->getKey()<<endl;
+        parent->left = child->right;
+      }
 
       return child;
     }
@@ -323,7 +387,7 @@ class BST
     ===================*/
     ~BST<K,V>()
     {
-      cout<<"DECONSTRUCTED BST with root of "<<root<<"."<<endl;
+      cout<<"DECONSTRUCTED BST with root of "<<root<<" and key of "<<root->getKey()<<"."<<endl;
       deconstructNodes(root);
     };
 };

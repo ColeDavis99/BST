@@ -73,19 +73,50 @@ int main()
   bst2.emplace(Node<int, string>(34, "Chub"));
   bst2.emplace(Node<int, string>(25, "Scrub"));
   bst2.emplace(Node<int, string>(13, "Wack"));
-  bst2.emplace(Node<int, string>(20, "WackSMAXK"));
+  bst2.emplace(Node<int, string>(20, "WACk"));
+  bst2.emplace(Node<int, string>(60, "hoops"));
   bst2.emplace(Node<int, string>(800, "sbub"));
+  bst2.emplace(Node<int, string>(500, "bleh"));
   bst2.emplace(Node<int, string>(1200, "pulp"));
   bst2.emplace(Node<int, string>(1100, "bumb"));
-  bst2.emplace(Node<int, string>(500, "bleh"));
   bst2.emplace(Node<int, string>(1300, "carrot"));
-  bst2.emplace(Node<int, string>(60, "hoops"));
 
   bst2.ascend_printout(bst2.getRoot());
 
 
 
+  //bst2.deleteNode(13);
+  bst2.deleteNode(172);
+  bst2.deleteNode(500); //Deleting the root and then deleting something else causes segfault
+  bst2.deleteNode(46);
   bst2.deleteNode(13);
+  bst2.deleteNode(1300);
+  bst2.deleteNode(10);
+  // bst2.deleteNode();
+  // bst2.deleteNode();
+  // bst2.deleteNode();
+  // bst2.deleteNode();
+  // bst2.deleteNode();
+  // bst2.deleteNode();
+  // bst2.deleteNode();
+  // bst2.deleteNode();
+
+
+  //Delete the whole BST, by deleting the new root every time until it's empty
+  // while((bst2.getRoot()) != nullptr)
+  // {
+  //   bst2.deleteNode(bst2.getRoot()->getKey());
+  // }
+
+
+
+
+
+  //bst2.deleteNode(13);
+  // bst2.deleteNode(800);
+  // bst2.deleteNode(172);
+  // bst2.deleteNode(800);
+
 
   cout<<endl<<endl<<endl;
   bst2.ascend_printout(bst2.getRoot());
