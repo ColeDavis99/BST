@@ -387,7 +387,10 @@ class BST
     ===================*/
     ~BST<K,V>()
     {
-      cout<<"DECONSTRUCTED BST with root of "<<root<<" and key of "<<root->getKey()<<"."<<endl;
+      if(root != nullptr)
+        cout<<"DECONSTRUCTED BST with root of "<<root<<" and key of "<<root->getKey()<<"."<<endl;
+      else
+        cout<<"Deconstructed BST with empty root."<<endl;
       deconstructNodes(root);
     };
 };
