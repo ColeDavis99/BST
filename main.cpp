@@ -67,8 +67,8 @@ int main()
   bst2.emplace(Node<int, string>(10, "Grub"));
   bst2.emplace(Node<int, string>(8, "Chub"));
   bst2.emplace(Node<int, string>(6, "Scrub"));
-  bst2.emplace(Node<int, string>(3, "Wack"));
-  bst2.emplace(Node<int, string>(7, "Wack"));
+  bst2.emplace(Node<int, string>(3, "Wock"));
+  bst2.emplace(Node<int, string>(7, "pack"));
   bst2.emplace(Node<int, string>(56, "Grub"));
   bst2.emplace(Node<int, string>(34, "Chub"));
   bst2.emplace(Node<int, string>(25, "Scrub"));
@@ -81,13 +81,14 @@ int main()
   bst2.emplace(Node<int, string>(1300, "carrot"));
   bst2.emplace(Node<int, string>(60, "hoops"));
 
+  bst2.ascend_printout(bst2.getRoot());
 
 
-  bst2.deleteNode(1200);
+
+  bst2.deleteNode(13);
 
   cout<<endl<<endl<<endl;
   bst2.ascend_printout(bst2.getRoot());
-  //bst2.deleteNode(1200);
 
   //cout<<bst2.leftmost_child(bst2.getRoot()).getKey();
   // bst2.emplace(Node<int, string>(993, "scab"));

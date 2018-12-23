@@ -100,7 +100,8 @@ class BST
       bool found_node = false;
 
 
-      //Keep track of parent and child nodes for our search. Child will be deleted, parent will get its left or right pointer assigned
+      //Keep track of parent and child nodes for our search.
+      //Child will be deleted, parent will get its left or right pointer assigned
       Node<K,V>* parent;
       parent = nullptr;
       Node<K,V>* child;
@@ -197,7 +198,7 @@ class BST
 
           child->left = nullptr;
           child->right = nullptr;
-          delete child;
+        delete child;
         }
       }
 
@@ -205,12 +206,41 @@ class BST
       //Step 2b: Node has one child
       else if( (child->left == nullptr && child->right != nullptr)  ||  (child->right == nullptr && child->left != nullptr) )
       {
-
+        if(child_is_left) //Child is left child of parent
+        {
+          //Assign parent's left pointer equal to child's only child
+          if(child->right != nullptr)
+          {
+            parent->left = child->right;
+            child->right = nullptr;
+          }
+          else
+          {
+            parent->left = child->left;
+            child->left = nullptr;
+          }
+        }
+        else //Child is right child of parent
+        {
+          //Assign parent's right pointer equal to child's only child
+          if(child->right != nullptr)
+          {
+            parent->right = child->right;
+            child->right = nullptr;
+          }
+          else
+          {
+            parent->right = child->left;
+            child->left = nullptr;
+          }
+        }
+        delete child;
       }
 
       //Step 2c: Node has no children
       else if(child->left == nullptr && child->right == nullptr)
       {
+        cout<<"No children"<<endl;
         if(child_is_left)
           parent->left = nullptr;
         else
