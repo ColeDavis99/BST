@@ -59,6 +59,13 @@ public:
     return this->value;
   };
 
+  //Setter
+  void setValue(V val_arg)
+  {
+    value = val_arg;
+  }
+
+  //Returns true if specified node has no children
   bool isLeaf()
   {
     if(this->left == nullptr && this->right == nullptr)

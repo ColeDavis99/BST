@@ -94,6 +94,49 @@ class BST
        }
     };
 
+    //Returns a memory address (pointer) to a node with a specified key
+    Node<K,V>* at(K key_arg)
+    {
+
+      Node<K,V>* currNode;
+      currNode = root;
+
+       //Keep iterating to insertion point until it's found (iterative, not recursive)
+       while(true)
+       {
+         if(currNode->getKey() > key_arg) //See if I need to move left
+         {
+           if(currNode->left != nullptr)//If node to left exists, move there.
+           {
+             currNode = currNode->left;
+           }
+           else //If I need to move left and the left node doesn't exist, then put the new node here.
+           {
+             cout<<"Key doesn't exist"<<endl;
+             return nullptr;
+           }
+         }
+         else if(currNode->getKey() < key_arg)//See if I need to move right
+         {
+           if(currNode->right != nullptr) //If node to right exists, move there.
+           {
+             currNode = currNode->right;
+           }
+           else //If I need to move right and the a right node doesn't exits, then put the new node here.
+           {
+             cout<<"Key doesn't exist"<<endl;
+             return nullptr;
+           }
+         }
+         else if(currNode->getKey() == key_arg)
+         {
+           cout<<"Found it."<<endl;
+           return currNode;
+         }
+       }
+    };
+
+
     //Delete the node with a particular key
     bool deleteNode(K key_arg)
     {
@@ -311,8 +354,8 @@ class BST
       else
       {
         ascend_printout(currNode->left);
-        cout<<currNode->getKey()<<"\t\t";
-        //cout<<currNode->getKey()<<"\t"<<currNode->getValue()<<"\t"<<currNode<<"\t";
+        //cout<<currNode->getKey()<<"\t\t";
+        cout<<currNode->getKey()<<"\t"<<currNode->getValue()<<"\t"<<currNode<<"\t";
         if(currNode->left != nullptr)
           cout<<currNode->left->getKey()<<"\t";
         else
@@ -331,6 +374,7 @@ class BST
     {
       return root;
     }
+
 
     //Return pointer to leftmost child of paramater node, also fixes leftmost node's right subtree
     Node<K,V>* leftmost_child(Node<K,V>* arg_node)

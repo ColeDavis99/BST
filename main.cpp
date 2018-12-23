@@ -84,32 +84,32 @@ int main()
   bst2.ascend_printout(bst2.getRoot());
 
 
+  if(bst2.at(17976) != nullptr) //at() returns a nullpointer if the specified key is not found in the BST, so make sure not to get segfaulted
+  {
+    bst2.at(17976)->setValue("blowgh");
+  }
 
-  //bst2.deleteNode(13);
+
+
+
+  //
+  // bst2.deleteNode(13);
   // bst2.deleteNode(172);
-  // bst2.deleteNode(500); //Deleting the root and then deleting something else causes segfault
+  // bst2.deleteNode(500);
   // bst2.deleteNode(46);
   // bst2.deleteNode(13);
   // bst2.deleteNode(1300);
   // bst2.deleteNode(10);
-  // bst2.deleteNode();
-  // bst2.deleteNode();
-  // bst2.deleteNode();
-  // bst2.deleteNode();
-  // bst2.deleteNode();
-  // bst2.deleteNode();
-  // bst2.deleteNode();
-  // bst2.deleteNode();
 
 
   //Delete the whole BST, by deleting the new root every time until it's empty
-  while((bst2.getRoot()) != nullptr)
-  {
-    cout<<"wub"<<endl;
-    cout<<"This is root: "<<bst2.getRoot()<<endl;
-    bst2.deleteNode(bst2.getRoot()->getKey());
-    cout<<"grub"<<endl;
-  }
+  // while((bst2.getRoot()) != nullptr)
+  // {
+  //   cout<<"wub"<<endl;
+  //   cout<<"This is root: "<<bst2.getRoot()<<endl;
+  //   bst2.deleteNode(bst2.getRoot()->getKey());
+  //   cout<<"grub"<<endl;
+  // }
 
 
 
