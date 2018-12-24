@@ -15,9 +15,9 @@ file1.write("{\n")
 '''
 L1 stores listing of 1000 random numbers from 1-1000 inclusive in the order they were gen.
 L2 stores either "None" or 1. The index number represents y/n the number is found in L1
-L3 stores the final listing of AT MOST 100 unique elements numbered 1-1000 inclusive.
+L3 stores the final listing of AT MOST 1000 unique elements numbered 1-1000 inclusive.
 '''
-MAX_NUM_NODES = 100000
+MAX_NUM_NODES = 1000
 L1 = [None] * int(MAX_NUM_NODES+1)
 L2 = [None] * int(MAX_NUM_NODES+1)
 L3 = [None] * int(MAX_NUM_NODES+1)
