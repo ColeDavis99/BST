@@ -631,9 +631,17 @@ int main()
 	bst2.emplace(Node<int, string>(439, "value"));
 	bst2.emplace(Node<int, string>(329, "value"));
 	bst2.emplace(Node<int, string>(574, "value"));
-	bst2.emplace(Node<int, string>(681, "value"));
 	bst2.emplace(Node<int, string>(575, "value"));
+	bst2.emplace(Node<int, string>(681, "value"));
 
+  bst2.ascend_printout(bst2.getRoot());
+
+  while(bst2.getRoot() != nullptr)
+	{
+		//bst2.ascend_printout(bst2.getRoot());
+		bst2.deleteNode(bst2.getRoot()->getKey());
+	}
 	bst2.ascend_printout(bst2.getRoot());
+
 	return 0;
 }

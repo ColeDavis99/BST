@@ -153,8 +153,7 @@ class BST
       //Keeps track of child pointer's relation to the parent pointer
       bool child_is_left = false;
 
-
-
+      cout<<"Beginning of deletion"<<endl;
 
       //Special case of deleting an empty BST
       if(root == nullptr)
@@ -163,9 +162,6 @@ class BST
         found_node = true;
         return found_node;
       }
-
-
-
 
 
       /*
@@ -267,15 +263,19 @@ class BST
       //Step 2b: Node has one child
       else if( (child->left == nullptr && child->right != nullptr)  ||  (child->right == nullptr && child->left != nullptr) )
       {
-        cout<<"One child"<<endl;
+        cout<<"One child, it is "<<child->getKey()<<endl;
         if(parent == nullptr) //If we're deleting the root
         {
           if(child->right != nullptr) //Root has subtree to the right, and left is completly empty
           {
             root = leftmost_child(child->right);
+            //cout<<"The root is going to be: "<<root->getKey()<<endl;
 
-            if(root->right->getKey() != child->right->getKey()) //Make sure to remove right subtree of child if there's only one node in it
-              root->right = child->right;
+            if(root->right != nullptr)//Prevent segfault when deleting root with one element in right subtree
+            {
+              if(root->right->getKey() != child->right->getKey()) //Make sure to remove right subtree of child if there's only one node in it (like a BST of 2 values, ex. 70 is root and 85 is right subtree of 70. If you delete 70, then 85 will become the root and WILL HAVE NO CHILDREN.)
+                root->right = child->right;
+            }
             root->left = child->left;
 
             child->left = nullptr;
@@ -334,13 +334,13 @@ class BST
             parent->left = nullptr;
           else
             parent->right = nullptr;
+          delete child;
         }
         else
         {
+          delete child;
           root = nullptr;
         }
-
-        delete child;
       }
       return found_node; //Returns true if this point is reached
     };
@@ -407,7 +407,6 @@ class BST
         cout<<"Leftmost's parent is itself (subtree is only one node)"<<endl;
         return child;
       }
-
 
       while(child->left != nullptr)
       {
