@@ -348,25 +348,41 @@ class BST
     //Print out contents by recursing left, then right
     void ascend_printout(Node<K,V>* currNode)
     {
+      //Keep track of the tab spaces (wow, recursion)
+      static string spaces = "";
+
       if(currNode == nullptr)
         return;
 
       else
       {
-        ascend_printout(currNode->left);
-        //cout<<currNode->getKey()<<"\t\t";
-        cout<<currNode->getKey()<<"\t"<<currNode->getValue()<<"\t"<<currNode<<"\t";
-        if(currNode->left != nullptr)
-          cout<<currNode->left->getKey()<<"\t";
-        else
-          cout<<"0"<<"\t";
-        if(currNode->right != nullptr)
-          cout<<currNode->right->getKey()<<endl;
-        else
-          cout<<"0"<<endl;
+        spaces += "     ";
         ascend_printout(currNode->right);
+        cout<<spaces<<currNode->getKey()<<endl;
+        ascend_printout(currNode->left);
+        spaces.pop_back();
+        spaces.pop_back();
+        spaces.pop_back();
+        spaces.pop_back();
+        spaces.pop_back();
+
+
+
+        //cout<<currNode->getKey()<<"\t\t";
+        //cout<<currNode->getKey()<<"\t"<<currNode->getValue()<<"\t"<<currNode<<"\t";
+        // if(currNode->left != nullptr)
+        //   cout<<currNode->left->getKey()<<"\t";
+        // else
+        //   cout<<"0"<<"\t";
+        // if(currNode->right != nullptr)
+        //   cout<<currNode->right->getKey()<<endl;
+        // else
+        //   cout<<"0"<<endl;
       }
     };
+
+
+
 
 
     //Returns pointer to root node.
