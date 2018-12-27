@@ -24,7 +24,7 @@ class BST
     BST<K,V>(const Node<K,V> &node_arg)
     {
       root = new Node<K,V>(node_arg); //Use copy constructor
-      cout<<"Constructed TREE root: "<<root<<endl;
+      cout<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<"Constructed TREE root: "<<root<<endl;
     };
 
 
@@ -263,20 +263,15 @@ class BST
       //Step 2b: Node has one child
       else if( (child->left == nullptr && child->right != nullptr)  ||  (child->right == nullptr && child->left != nullptr) )
       {
-        cout<<"One child, it is "<<child->getKey()<<endl;
+        cout<<"One child, it is "<<child->getKey()<<" (disregard if deleting root)"<<endl;
         if(parent == nullptr) //If we're deleting the root
         {
           if(child->right != nullptr) //Root has subtree to the right, and left is completly empty
           {
             root = leftmost_child(child->right);
-            //cout<<"The root is going to be: "<<root->getKey()<<endl;
-
-            if(root->right != nullptr)//Prevent segfault when deleting root with one element in right subtree
-            {
-              if(root->right->getKey() != child->right->getKey()) //Make sure to remove right subtree of child if there's only one node in it (like a BST of 2 values, ex. 70 is root and 85 is right subtree of 70. If you delete 70, then 85 will become the root and WILL HAVE NO CHILDREN.)
-                root->right = child->right;
-            }
-            root->left = child->left;
+            //cout<<"This will be root: "<<root->getKey()<<endl;
+            if(root->getKey() != child->right->getKey())//If there aren't only two nodes in the entire BST in this context (deleting root with only right subtree)
+              root->right = child->right;
 
             child->left = nullptr;
             child->right = nullptr;
@@ -422,7 +417,7 @@ class BST
         cout<<"Leftmost's parent: "<<parent->getKey()<<endl;
         parent->left = child->right;
       }
-
+      //cout<<"This is what leftmost is returning: "<<child->getKey()<<endl;
       return child;
     }
 
